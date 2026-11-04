@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { restaurantImage } from "../data/images";
 import { SAMPLE_MENUS } from "../data/menus";
 import { findRestaurant } from "../data/restaurants";
 import { useLang, type Key } from "../i18n";
@@ -37,7 +38,20 @@ export default function RestaurantPage() {
         ← {t("r.back")}
       </Link>
 
-      <header className="rounded-2xl border-2 border-ink/10 bg-white/70 p-6">
+      <header className="overflow-hidden rounded-2xl border-2 border-ink/10 bg-white/70">
+        <div className="relative">
+          <img
+            src={restaurantImage(restaurant)}
+            alt=""
+            width={720}
+            height={542}
+            className="aspect-[16/9] w-full object-cover sm:aspect-[21/9]"
+          />
+          <span className="absolute bottom-2 left-2 rounded bg-ink/70 px-2 py-0.5 text-[10px] font-semibold text-white">
+            {t("img.sample")}
+          </span>
+        </div>
+        <div className="p-6">
         <p className="eyebrow">{t(`cuisine.${restaurant.cuisine}` as Key)}</p>
         <h1 className="display mt-3 text-4xl">{restaurant.name}</h1>
         <p className="mt-2 text-ink-soft">
@@ -66,6 +80,7 @@ export default function RestaurantPage() {
         >
           {t("r.map")}
         </a>
+        </div>
       </header>
 
       <div className="grid gap-6 lg:grid-cols-[1fr_340px]">

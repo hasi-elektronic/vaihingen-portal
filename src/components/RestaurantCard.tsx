@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { CUISINE_IMAGE } from "../data/images";
+import { restaurantImage } from "../data/images";
 import type { Restaurant } from "../data/restaurants";
 import { useLang, type Key } from "../i18n";
 
@@ -13,7 +13,7 @@ export default function RestaurantCard({ restaurant }: { restaurant: Restaurant 
       >
         <div className="relative">
           <img
-            src={CUISINE_IMAGE[restaurant.cuisine]}
+            src={restaurantImage(restaurant)}
             alt=""
             loading="lazy"
             width={720}
