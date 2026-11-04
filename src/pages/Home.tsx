@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import RestaurantCard from "../components/RestaurantCard";
 import { CUISINES, RESTAURANTS, type Cuisine } from "../data/restaurants";
+import { HERO_IMAGE } from "../data/images";
 import { useLang, type Key } from "../i18n";
 
 export default function Home() {
@@ -41,20 +42,32 @@ export default function Home() {
               {t("home.ctaOwners")}
             </Link>
           </div>
+          <p className="mx-auto mt-4 max-w-md text-sm text-ink-soft md:mx-0">{t("home.payNote")}</p>
         </div>
 
-        <div className="relative mx-auto w-full max-w-sm" aria-hidden>
-          <div className="flex aspect-[4/5] flex-col items-center justify-center rounded-t-[999px] rounded-b-3xl bg-brand-red px-6 text-center text-white">
-            <p className="display text-7xl">{RESTAURANTS.length}</p>
-            <p className="font-display text-sm font-bold uppercase tracking-[0.16em]">{t("home.statRestaurants")}</p>
-            <div className="my-6 h-px w-16 bg-white/40" />
-            <p className="display text-7xl">0 %</p>
-            <p className="font-display text-sm font-bold uppercase tracking-[0.16em]">{t("home.statCommission")}</p>
+        <figure className="relative mx-auto w-full max-w-sm">
+          <img
+            src={HERO_IMAGE}
+            alt=""
+            width={1280}
+            height={716}
+            fetchPriority="high"
+            className="aspect-[4/5] w-full rounded-t-[999px] rounded-b-3xl bg-brand-red object-cover"
+          />
+          <div className="absolute bottom-5 left-4 right-4 flex gap-2" aria-hidden>
+            <span className="flex-1 rounded-xl bg-brand-red px-3 py-2 text-center text-white shadow-lg ring-4 ring-cream">
+              <span className="display block text-2xl">{RESTAURANTS.length}</span>
+              <span className="font-display text-[10px] font-bold uppercase tracking-[0.14em]">{t("home.statRestaurants")}</span>
+            </span>
+            <span className="flex-1 rounded-xl bg-brand-red px-3 py-2 text-center text-white shadow-lg ring-4 ring-cream">
+              <span className="display block text-2xl">0 %</span>
+              <span className="font-display text-[10px] font-bold uppercase tracking-[0.14em]">{t("home.statCommission")}</span>
+            </span>
           </div>
-          <span className="absolute -bottom-4 left-4 rounded-lg bg-brand-red px-4 py-2 font-display text-xs font-black uppercase tracking-wide text-white shadow-lg ring-4 ring-cream">
-            {t("home.archTag")}
-          </span>
-        </div>
+          <figcaption className="mt-2 text-center text-xs text-ink-soft">
+            {t("home.archTag")} · {t("img.sample")}
+          </figcaption>
+        </figure>
       </section>
 
       <section id="restaurants" aria-labelledby="list-heading" className="scroll-mt-4 space-y-5">

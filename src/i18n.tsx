@@ -21,6 +21,10 @@ const de = {
   "home.statRestaurants": "Restaurants",
   "home.statCommission": "Provision",
   "home.archTag": "Lokal · Fair · Direkt",
+  "home.payNote":
+    "0 % Provision, feste Gebühr. Ausgenommen: Gebühren des Zahlungsanbieters, die gehen direkt an den Anbieter, nicht an uns.",
+  "img.sample": "Beispielbild (KI-generiert)",
+  "w.imgAlt": "Restaurantinhaber übergibt Takeaway-Tüte an Kundin",
   "home.list": "Restaurants",
   "home.searchLabel": "Restaurant oder Straße suchen",
   "home.searchPh": "z. B. Pizza, Grabenstraße, Kebap",
@@ -111,6 +115,10 @@ const tr: Record<Key, string> = {
   "home.statRestaurants": "Restoran",
   "home.statCommission": "Komisyon",
   "home.archTag": "Yerel · Adil · Doğrudan",
+  "home.payNote":
+    "%0 komisyon, sabit ücret. İstisna: ödeme sağlayıcının işlem ücreti doğrudan sağlayıcıya gider, bize değil.",
+  "img.sample": "Örnek görsel (yapay zekâ ile üretildi)",
+  "w.imgAlt": "Restoran sahibi müşteriye paket teslim ediyor",
   "home.list": "Restoranlar",
   "home.searchLabel": "Restoran veya sokak ara",
   "home.searchPh": "örn. Pizza, Grabenstraße, Kebap",

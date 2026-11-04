@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { OWNER_IMAGE } from "../data/images";
 import { useLang, type Key } from "../i18n";
 import { formatEuro } from "../lib/format";
 
@@ -54,6 +55,15 @@ export default function RestaurantWerden() {
         <h1 className="display mt-3 max-w-3xl text-4xl sm:text-5xl">{t("w.title")}</h1>
         <p className="mt-4 max-w-2xl text-lg text-ink-soft">{t("w.lead")}</p>
       </section>
+
+      <img
+        src={OWNER_IMAGE}
+        alt={t("w.imgAlt")}
+        loading="lazy"
+        width={900}
+        height={678}
+        className="aspect-[16/9] w-full rounded-2xl object-cover"
+      />
 
       <section className="grid gap-4 sm:grid-cols-3">
         {POINTS.map((p) => (
