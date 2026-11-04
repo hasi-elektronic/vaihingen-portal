@@ -21,11 +21,15 @@ npm run build    # Typprüfung + Build nach dist/
   Öffnungszeiten nur, wo öffentlich belegt. Keine Fotos, Logos oder Bewertungen.
 - `src/data/menus.ts`: generische Beispielgerichte je Küche, keine echten Speisekarten.
 
-## Deploy (Cloudflare Pages)
+## Deploy (Cloudflare Worker + Static Assets)
+
+Das Cloudflare-Pages-Limit des Accounts ist voll, daher läuft die Seite als Worker mit Static Assets (`wrangler.jsonc`).
+SPA-Routing über `not_found_handling: single-page-application`, Header über `public/_headers`.
 
 ```bash
 npm run build
-npx wrangler pages deploy dist --project-name=vaihingen-portal --commit-dirty=true
+npx wrangler@4 deploy   # braucht CLOUDFLARE_API_TOKEN und CLOUDFLARE_ACCOUNT_ID in der Umgebung
 ```
 
-`public/_redirects` sorgt für das SPA-Routing, `public/_headers` und `public/robots.txt` halten die Seite aus Suchmaschinen.
+Live: https://vaihingen-portal.hguencavdi.workers.dev (noindex). Das GitHub-Workflow `.github/workflows/deploy.yml`
+deployt bei jedem Push, sobald die Repo-Secrets `CLOUDFLARE_API_TOKEN` und `CLOUDFLARE_ACCOUNT_ID` gesetzt sind.
