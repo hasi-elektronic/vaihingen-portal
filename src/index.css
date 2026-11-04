@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Markenblau #3ABADF als Akzent, dunklere Variante für Text/Buttons (Kontrast AA). */
+  --color-brand-50: #ecfaff;
+  --color-brand-100: #c9f1fb;
+  --color-brand-400: #3abadf;
+  --color-brand-700: #0e6f8f;
+  --color-brand-800: #0b566e;
+  --color-cta: #c2410c;
+  --color-cta-dark: #9a3412;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-brand-700);
+  outline-offset: 2px;
+}
