@@ -2,8 +2,10 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import RestaurantCard from "../components/RestaurantCard";
 import { CUISINES, RESTAURANTS, type Cuisine } from "../data/restaurants";
+import { useLang, type Key } from "../i18n";
 
 export default function Home() {
+  const { t } = useLang();
   const [query, setQuery] = useState("");
   const [cuisine, setCuisine] = useState<Cuisine | null>(null);
 
@@ -23,48 +25,69 @@ export default function Home() {
   }, [query, cuisine]);
 
   return (
-    <div className="space-y-8">
-      <section className="rounded-3xl bg-brand-700 px-6 py-10 text-white sm:px-10">
-        <h1 className="max-w-2xl text-3xl font-bold leading-tight sm:text-4xl">
-          Bestellen bei Restaurants in Vaihingen – ohne Provision.
-        </h1>
-        <p className="mt-3 max-w-2xl text-brand-100">
-          Ein lokales Portal, das nur vermittelt. Die Restaurants zahlen eine feste Gebühr statt einen Anteil
-          am Umsatz, die Bestellung geht direkt an das Restaurant.
-        </p>
-        <div className="mt-6">
-          <label htmlFor="search" className="mb-1 block text-sm font-medium">
-            Restaurant oder Straße suchen
+    <div className="space-y-14">
+      <section className="grid items-center gap-10 md:grid-cols-[1.2fr_1fr]">
+        <div className="text-center md:text-left">
+          <p className="eyebrow">{t("home.eyebrow")}</p>
+          <h1 className="display mt-4 text-5xl sm:text-6xl">
+            {t("home.h1a")} <span className="text-brand-red">{t("home.h1b")}</span> {t("home.h1c")}
+          </h1>
+          <p className="mx-auto mt-5 max-w-md text-lg text-ink-soft md:mx-0">{t("home.lead")}</p>
+          <div className="mt-7 flex flex-col gap-3 sm:flex-row md:justify-start sm:justify-center">
+            <a href="#restaurants" className="btn btn-primary">
+              {t("home.cta")}
+            </a>
+            <Link to="/restaurant-werden" className="btn btn-outline">
+              {t("home.ctaOwners")}
+            </Link>
+          </div>
+        </div>
+
+        <div className="relative mx-auto w-full max-w-sm" aria-hidden>
+          <div className="flex aspect-[4/5] flex-col items-center justify-center rounded-t-[999px] rounded-b-3xl bg-brand-red px-6 text-center text-white">
+            <p className="display text-7xl">{RESTAURANTS.length}</p>
+            <p className="font-display text-sm font-bold uppercase tracking-[0.16em]">{t("home.statRestaurants")}</p>
+            <div className="my-6 h-px w-16 bg-white/40" />
+            <p className="display text-7xl">0 %</p>
+            <p className="font-display text-sm font-bold uppercase tracking-[0.16em]">{t("home.statCommission")}</p>
+          </div>
+          <span className="absolute -bottom-4 left-4 rounded-lg bg-brand-red px-4 py-2 font-display text-xs font-black uppercase tracking-wide text-white shadow-lg ring-4 ring-cream">
+            {t("home.archTag")}
+          </span>
+        </div>
+      </section>
+
+      <section id="restaurants" aria-labelledby="list-heading" className="scroll-mt-4 space-y-5">
+        <div className="flex flex-wrap items-baseline justify-between gap-2">
+          <h2 id="list-heading" className="display text-3xl">
+            {t("home.list")} <span className="text-brand-red">({results.length})</span>
+          </h2>
+          <Link to="/restaurant-werden" className="text-sm font-semibold text-brand-red underline">
+            {t("home.owner")}
+          </Link>
+        </div>
+
+        <div>
+          <label htmlFor="search" className="mb-1 block text-sm font-semibold">
+            {t("home.searchLabel")}
           </label>
           <input
             id="search"
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="z. B. Pizza, Grabenstraße, Kebap"
-            className="w-full max-w-xl rounded-xl border-0 bg-white px-4 py-3 text-stone-900 placeholder:text-stone-500"
+            placeholder={t("home.searchPh")}
+            className="w-full max-w-xl rounded-lg border-2 border-ink/15 bg-white px-4 py-3 placeholder:text-ink-soft/70"
           />
         </div>
-      </section>
 
-      <section aria-labelledby="list-heading" className="space-y-4">
-        <div className="flex flex-wrap items-baseline justify-between gap-2">
-          <h2 id="list-heading" className="text-xl font-bold">
-            Restaurants ({results.length})
-          </h2>
-          <Link to="/restaurant-werden" className="text-sm font-medium text-brand-800 underline">
-            Sie betreiben ein Restaurant?
-          </Link>
-        </div>
-
-        <div role="group" aria-label="Nach Küche filtern" className="flex flex-wrap gap-2">
-          <button
-            type="button"
-            aria-pressed={cuisine === null}
-            onClick={() => setCuisine(null)}
-            className={chip(cuisine === null)}
-          >
-            Alle ({RESTAURANTS.length})
+        <div
+          role="group"
+          aria-label={t("home.filterAria")}
+          className="-mx-4 flex flex-nowrap gap-2 overflow-x-auto px-4 pb-1 lg:mx-0 lg:flex-wrap lg:px-0"
+        >
+          <button type="button" aria-pressed={cuisine === null} onClick={() => setCuisine(null)} className={chip(cuisine === null)}>
+            {t("home.all")} ({RESTAURANTS.length})
           </button>
           {CUISINES.filter((c) => counts.has(c)).map((c) => (
             <button
@@ -74,14 +97,14 @@ export default function Home() {
               onClick={() => setCuisine(cuisine === c ? null : c)}
               className={chip(cuisine === c)}
             >
-              {c} ({counts.get(c)})
+              {t(`cuisine.${c}` as Key)} ({counts.get(c)})
             </button>
           ))}
         </div>
 
         {results.length === 0 ? (
-          <p className="rounded-xl border border-dashed border-stone-300 bg-white p-6 text-stone-600">
-            Keine Treffer. Versuchen Sie einen anderen Suchbegriff oder setzen Sie den Filter zurück.
+          <p className="rounded-2xl border-2 border-dashed border-ink/20 bg-white/50 p-6 text-ink-soft">
+            {t("home.noResults")}
           </p>
         ) : (
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -96,9 +119,7 @@ export default function Home() {
 }
 
 function chip(active: boolean): string {
-  return `rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
-    active
-      ? "border-brand-700 bg-brand-700 text-white"
-      : "border-stone-300 bg-white text-stone-800 hover:border-brand-400"
+  return `shrink-0 whitespace-nowrap rounded-full border-2 px-4 py-2 text-sm font-bold transition-colors ${
+    active ? "border-ink bg-ink text-white" : "border-ink/15 bg-white/70 text-ink hover:border-ink"
   }`;
 }

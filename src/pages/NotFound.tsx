@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
+import { useLang } from "../i18n";
 
 export default function NotFound() {
+  const { t } = useLang();
   return (
     <div className="space-y-3">
-      <h1 className="text-3xl font-bold">Seite nicht gefunden</h1>
-      <p className="text-stone-700">Diese Seite oder dieses Restaurant gibt es nicht.</p>
-      <Link to="/" className="font-medium text-brand-800 underline">
-        Zur Startseite
+      <h1 className="display text-4xl">{t("nf.title")}</h1>
+      <p className="text-ink-soft">{t("nf.text")}</p>
+      <Link to="/" className="font-semibold text-brand-red underline">
+        {t("nf.home")}
       </Link>
     </div>
   );
